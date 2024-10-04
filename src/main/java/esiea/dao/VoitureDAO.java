@@ -31,11 +31,11 @@ public class VoitureDAO {
 			}
 		} catch (SQLException sql) {
 			sql.printStackTrace(); 
-			logger.debug("Impossible de se connecter à la base !" + sql);} 
+			logger.debug("Impossible de se connecter ï¿½ la base !" + sql);} 
 		catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		logger.debug("Connexion à la base OK !" + connection);
+		logger.debug("Connexion ï¿½ la base OK !" + connection);
 		return connection;
 	}
 	
