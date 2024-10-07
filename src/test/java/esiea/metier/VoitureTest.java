@@ -1,34 +1,23 @@
 package esiea.metier;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-
 import static org.junit.jupiter.api.Assertions.*;
+
 class VoitureTest {
 
-    @Mock
     Voiture voiture = new Voiture();
 
-    @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
     @Test
-    public void testGetTypeDonneeWithString(){
-
+    public void testGetTypeDonneeWithString() {
         // Tableau des valeurs attendues pour les strings
         String[] donneesString = {"marque", "modele", "finition"};
 
         // Boucle sur chaque valeur dans le tableau
         for (String donnee : donneesString) {
-            String resultat = voiture.getTypeDonnee(donnee);
+            String resultat = Voiture.getTypeDonnee(donnee);
             assertEquals("string", resultat, "Erreur avec la donnée : " + donnee);
         }
     }
-
 
     @Test
     public void testGetTypeDonneeWithEntier() {
@@ -37,32 +26,22 @@ class VoitureTest {
 
         // Boucle sur chaque valeur dans le tableau
         for (String donnee : donneesEntiere) {
-            String resultat = voiture.getTypeDonnee(donnee);
+            String resultat = Voiture.getTypeDonnee(donnee);
             assertEquals("entier", resultat, "Erreur avec la donnée : " + donnee);
         }
     }
 
-
-
-
     @Test
     public void testCheckWithValidValues() {
-        // declaration des variable de test
-
-        int id = 1;
-        int km = 50000;
-        int annee =2015;
-        int prix = 15000;
-
-        // Simuler des valeurs valides pour la voiture
-        Mockito.when(voiture.getId()).thenReturn(id);
-        Mockito.when(voiture.getMarque()).thenReturn("Toyota");
-        Mockito.when(voiture.getModele()).thenReturn("Corolla");
-        Mockito.when(voiture.getFinition()).thenReturn("Sport");
-        //Mockito.when(voiture.getCarburant()).thenReturn("Essence");
-        Mockito.when(voiture.getKm()).thenReturn(km);
-        Mockito.when(voiture.getAnnee()).thenReturn(annee);
-        Mockito.when(voiture.getPrix()).thenReturn(prix);
+        // Déclaration des valeurs valides
+        voiture.setId(1);
+        voiture.setMarque("Toyota");
+        voiture.setModele("Corolla");
+        voiture.setFinition("Sport");
+        voiture.setCarburant(Voiture.Carburant.valueOf("ESSENCE"));
+        voiture.setKm(50000);
+        voiture.setAnnee(2015);
+        voiture.setPrix(15000);
 
         // Vérifier que check() renvoie true
         assertTrue(voiture.check());
@@ -70,9 +49,15 @@ class VoitureTest {
 
     @Test
     public void testCheckWithInvalidId() {
-        // Simuler un id invalide
-        int invalidid = -1;
-        Mockito.when(voiture.getId()).thenReturn(invalidid);
+        // Déclaration d'un ID invalide
+        voiture.setId(-1); // ID négatif
+        voiture.setMarque("Toyota");
+        voiture.setModele("Corolla");
+        voiture.setFinition("Sport");
+        voiture.setCarburant(Voiture.Carburant.valueOf("ESSENCE"));
+        voiture.setKm(50000);
+        voiture.setAnnee(2015);
+        voiture.setPrix(15000);
 
         // Vérifier que check() renvoie false
         assertFalse(voiture.check());
@@ -80,9 +65,15 @@ class VoitureTest {
 
     @Test
     public void testCheckWithNullMarque() {
-        // Simuler une marque nulle
-        String marque= null;
-        Mockito.when(voiture.getMarque()).thenReturn(marque);
+        // Déclaration d'une marque nulle
+        voiture.setId(1);
+        voiture.setMarque(null); // Marque nulle
+        voiture.setModele("Corolla");
+        voiture.setFinition("Sport");
+        voiture.setCarburant(Voiture.Carburant.valueOf("ESSENCE"));
+        voiture.setKm(50000);
+        voiture.setAnnee(2015);
+        voiture.setPrix(15000);
 
         // Vérifier que check() renvoie false
         assertFalse(voiture.check());
@@ -90,8 +81,15 @@ class VoitureTest {
 
     @Test
     public void testCheckWithEmptyModele() {
-        // Simuler un modèle vide
-        Mockito.when(voiture.getModele()).thenReturn("");
+        // Déclaration d'un modèle vide
+        voiture.setId(1);
+        voiture.setMarque("Toyota");
+        voiture.setModele(""); // Modèle vide
+        voiture.setFinition("Sport");
+        voiture.setCarburant(Voiture.Carburant.valueOf("ESSENCE"));
+        voiture.setKm(50000);
+        voiture.setAnnee(2015);
+        voiture.setPrix(15000);
 
         // Vérifier que check() renvoie false
         assertFalse(voiture.check());
@@ -99,9 +97,15 @@ class VoitureTest {
 
     @Test
     public void testCheckWithInvalidAnnee() {
-        // Simuler une année invalide;
-        int annee = 1899;
-        Mockito.when(voiture.getAnnee()).thenReturn(annee);
+        // Déclaration d'une année invalide
+        voiture.setId(1);
+        voiture.setMarque("Toyota");
+        voiture.setModele("Corolla");
+        voiture.setFinition("Sport");
+        voiture.setCarburant(Voiture.Carburant.valueOf("ESSENCE"));
+        voiture.setKm(50000);
+        voiture.setAnnee(1899); // Année invalide
+        voiture.setPrix(15000);
 
         // Vérifier que check() renvoie false
         assertFalse(voiture.check());
@@ -109,12 +113,17 @@ class VoitureTest {
 
     @Test
     public void testCheckWithInvalidPrix() {
-        // Simuler un prix négatif
-        int price = -1000;
-        Mockito.when(voiture.getPrix()).thenReturn(price);
+        // Déclaration d'un prix négatif
+        voiture.setId(1);
+        voiture.setMarque("Toyota");
+        voiture.setModele("Corolla");
+        voiture.setFinition("Sport");
+        voiture.setCarburant(Voiture.Carburant.valueOf("ESSENCE"));
+        voiture.setKm(50000);
+        voiture.setAnnee(2015);
+        voiture.setPrix(-1000);
 
-        // Vérifier que check() renvoie false
+
         assertFalse(voiture.check());
     }
-
 }
