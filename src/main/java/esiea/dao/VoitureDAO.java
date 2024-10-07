@@ -16,14 +16,14 @@ import utils.StringUtils;
 
 public class VoitureDAO {
 	
-	private Connection connection;
+	public Connection connection;
 	protected static final Logger logger = Logger.getLogger(VoitureDAO.class);
 	
 	public VoitureDAO() {
 		
 	}
 	
-	private Connection getConnexion() {
+	public Connection getConnexion() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			if (connection == null) {
@@ -47,7 +47,7 @@ public class VoitureDAO {
 		return url;
 	}
 	
-	private void deconnecter() throws SQLException {
+	public void deconnecter() throws SQLException {
 		if(connection != null) {
 			connection.close();
 		}
