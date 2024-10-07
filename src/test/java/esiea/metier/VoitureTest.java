@@ -14,7 +14,6 @@ class VoitureTest {
 
     @BeforeEach
     public void setUp() {
-        //Initialiser les mocks
         MockitoAnnotations.openMocks(this);
     }
     @Test

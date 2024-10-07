@@ -75,7 +75,7 @@ class VoitureDAOTest {
         voiture.setMarque("Toyota");
         voiture.setModele("Corolla");
         voiture.setFinition("Sport");
-        voiture.setCarburant("Essence");
+        voiture.setCarburant(Voiture.Carburant.valueOf("Essence"));
         voiture.setKm(60000);
         voiture.setAnnee(2018);
         voiture.setPrix(18000);
@@ -130,8 +130,30 @@ class VoitureDAOTest {
     }
 
 
+    @Test
+    public void testSupprimerVoiture() throws SQLException {
+        // Appeler la méthode supprimerVoiture avec un ID donné
+        String id = "123";
+        voitureDAO.supprimerVoiture(id);
 
+        // Vérifier que le PreparedStatement a été configuré avec la bonne valeur pour l'ID
+        verify(mockPreparedStatement).setString(1, id);
 
+        // Vérifier que la méthode executeUpdate a été appelée pour exécuter la suppression
+        verify(mockPreparedStatement).executeUpdate();
+
+        // Vérifier que la méthode deconnecter a été appelée après l'exécution
+        verify(voitureDAO).deconnecter();
+    }
+
+    @Test
+    public void testSupprimerVoitureSQLException() throws SQLException {
+        when(mockPreparedStatement.executeUpdate()).thenThrow(new SQLException());
+        assertThrows(SQLException.class, () -> {
+            voitureDAO.supprimerVoiture("123");
+        });
+        verify(voitureDAO).deconnecter();
+    }
 
 
 }
